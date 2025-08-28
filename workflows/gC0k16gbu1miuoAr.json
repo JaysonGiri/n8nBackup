@@ -163,7 +163,7 @@
       "main": [
         [
           {
-            "node": "Get File",
+            "node": "If file too large",
             "type": "main",
             "index": 0
           }
@@ -231,6 +231,24 @@
         [
           {
             "node": "Globals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If file too large": {
+      "main": [
+        [
+          {
+            "node": "Get File",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Items",
             "type": "main",
             "index": 0
           }
@@ -730,6 +748,50 @@
         880
       ],
       "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 1,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "45ce825e-9fa6-430c-8931-9aaf22c42585",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.content }}",
+              "rightValue": ""
+            },
+            {
+              "id": "9619a55f-7fb1-4f24-b1a7-7aeb82365806",
+              "operator": {
+                "type": "string",
+                "operation": "notExists",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.error }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "bfd1592f-f6bf-4142-9c34-4571367db7e0",
+      "name": "If file too large",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        880,
+        720
+      ],
+      "typeVersion": 2
     }
   ],
   "pinData": {},
@@ -739,6 +801,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-28T23:22:00.000Z",
-  "versionId": "4559378d-565e-4630-b2be-64126f6e0a23"
+  "updatedAt": "2025-08-28T23:22:35.000Z",
+  "versionId": "a913fcc5-5af3-4bd9-9e40-00aff616c7b8"
 }
