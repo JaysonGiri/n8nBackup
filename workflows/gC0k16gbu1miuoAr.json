@@ -130,16 +130,15 @@
     },
     "Switch": {
       "main": [
-        [
-          {
-            "node": "Return",
-            "type": "main",
-            "index": 0
-          }
-        ],
+        [],
         [
           {
             "node": "Edit existing file",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Return",
             "type": "main",
             "index": 0
           }
@@ -192,29 +191,6 @@
           "name": "n8n account"
         }
       }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "8d513345-6484-431f-afb7-7cf045c90f4f",
-              "name": "Done",
-              "type": "boolean",
-              "value": true
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "c68cf9fd-6007-4d76-ad75-d20af5bc91dd",
-      "name": "Return",
-      "type": "n8n-nodes-base.set",
-      "position": [
-        1568,
-        896
-      ],
-      "typeVersion": 3.3
     },
     {
       "parameters": {},
@@ -445,13 +421,14 @@
                 },
                 "conditions": [
                   {
+                    "id": "90080a8a-e0db-40f1-9fe5-93b8458132dc",
                     "leftValue": "={{$json.github_status}}",
                     "rightValue": "same",
                     "operator": {
                       "type": "string",
-                      "operation": "equals"
-                    },
-                    "id": "53dbe6b7-fd03-4fdd-9fde-6016b7686cab"
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
                   }
                 ],
                 "combinator": "and"
@@ -510,11 +487,34 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        832,
-        1024
+        912,
+        1040
       ],
       "id": "b636a90e-f7db-4380-b4b1-c70d4715171f",
       "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8d513345-6484-431f-afb7-7cf045c90f4f",
+              "name": "Done",
+              "type": "boolean",
+              "value": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c68cf9fd-6007-4d76-ad75-d20af5bc91dd",
+      "name": "Return",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1568,
+        896
+      ],
+      "typeVersion": 3.3
     }
   ],
   "pinData": {},
@@ -524,6 +524,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-28T23:40:53.000Z",
-  "versionId": "ec727ad3-9443-4fad-bc66-c1e161a93a4e"
+  "updatedAt": "2025-08-28T23:44:32.000Z",
+  "versionId": "ab506edf-b907-4c02-9665-3743c6119809"
 }
