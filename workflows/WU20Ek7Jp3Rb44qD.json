@@ -175,27 +175,9 @@
     },
     "Switch1": {
       "main": [
-        [
-          {
-            "node": "Split to single items3",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Split to single items3",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Split to single items3",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        [],
+        [],
+        []
       ]
     }
   },
@@ -600,6 +582,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-28T22:40:55.000Z",
-  "versionId": "37451016-03c2-4ac4-b2f9-ba2f199f7cd6"
+  "updatedAt": "2025-08-28T22:56:39.000Z",
+  "versionId": "04ddfe8e-a894-4e4a-89d1-620687424814"
 }
