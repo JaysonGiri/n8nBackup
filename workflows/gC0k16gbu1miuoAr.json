@@ -130,15 +130,16 @@
     },
     "Switch": {
       "main": [
-        [],
+        [
+          {
+            "node": "Return",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "Edit existing file",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "Return",
             "type": "main",
             "index": 0
           }
@@ -524,6 +525,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-28T23:44:32.000Z",
-  "versionId": "ab506edf-b907-4c02-9665-3743c6119809"
+  "updatedAt": "2025-08-28T23:44:40.000Z",
+  "versionId": "79ed5a0f-45ee-452b-b763-8298f08c31fe"
 }
