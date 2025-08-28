@@ -34,24 +34,6 @@
         ]
       ]
     },
-    "If file too large": {
-      "main": [
-        [
-          {
-            "node": "Get File",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Merge Items",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Merge Items": {
       "main": [
         [
@@ -181,7 +163,7 @@
       "main": [
         [
           {
-            "node": "If file too large",
+            "node": "Get File",
             "type": "main",
             "index": 0
           }
@@ -331,50 +313,6 @@
         688
       ],
       "typeVersion": 4.2
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "version": 1,
-            "leftValue": "",
-            "caseSensitive": true,
-            "typeValidation": "strict"
-          },
-          "combinator": "and",
-          "conditions": [
-            {
-              "id": "45ce825e-9fa6-430c-8931-9aaf22c42585",
-              "operator": {
-                "type": "string",
-                "operation": "empty",
-                "singleValue": true
-              },
-              "leftValue": "={{ $json.content }}",
-              "rightValue": ""
-            },
-            {
-              "id": "9619a55f-7fb1-4f24-b1a7-7aeb82365806",
-              "operator": {
-                "type": "string",
-                "operation": "notExists",
-                "singleValue": true
-              },
-              "leftValue": "={{ $json.error }}",
-              "rightValue": ""
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "bfd1592f-f6bf-4142-9c34-4571367db7e0",
-      "name": "If file too large",
-      "type": "n8n-nodes-base.if",
-      "position": [
-        880,
-        720
-      ],
-      "typeVersion": 2
     },
     {
       "parameters": {},
@@ -801,6 +739,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-28T23:19:11.000Z",
-  "versionId": "276f83f1-8ae8-4074-ab79-9fab9185abae"
+  "updatedAt": "2025-08-28T23:22:00.000Z",
+  "versionId": "4559378d-565e-4630-b2be-64126f6e0a23"
 }
