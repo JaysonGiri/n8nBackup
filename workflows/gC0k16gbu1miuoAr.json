@@ -60,51 +60,18 @@
       "main": [
         [
           {
-            "node": "Same file - Do nothing",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "File is different",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "File is new",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Same file - Do nothing": {
-      "main": [
-        [
-          {
             "node": "Return",
             "type": "main",
             "index": 0
           }
-        ]
-      ]
-    },
-    "File is different": {
-      "main": [
+        ],
         [
           {
             "node": "Edit existing file",
             "type": "main",
             "index": 0
           }
-        ]
-      ]
-    },
-    "File is new": {
-      "main": [
+        ],
         [
           {
             "node": "Create new file",
@@ -190,7 +157,7 @@
             "index": 1
           },
           {
-            "node": "tag?",
+            "node": "Globals",
             "type": "main",
             "index": 0
           }
@@ -202,35 +169,6 @@
         [
           {
             "node": "Loop Over Items",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "/": {
-      "main": [
-        [
-          {
-            "node": "Globals",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "tag?": {
-      "main": [
-        [
-          {
-            "node": "/",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Globals",
             "type": "main",
             "index": 0
           }
@@ -327,8 +265,8 @@
       "name": "Get File",
       "type": "n8n-nodes-base.httpRequest",
       "position": [
-        1088,
-        688
+        704,
+        736
       ],
       "typeVersion": 4.2
     },
@@ -382,39 +320,6 @@
       "position": [
         1312,
         976
-      ],
-      "typeVersion": 1
-    },
-    {
-      "parameters": {},
-      "id": "814c4d2b-5178-4b47-be29-1e237a231602",
-      "name": "Same file - Do nothing",
-      "type": "n8n-nodes-base.noOp",
-      "position": [
-        1536,
-        816
-      ],
-      "typeVersion": 1
-    },
-    {
-      "parameters": {},
-      "id": "6751ca56-ac3c-4601-a706-cc65548f4b11",
-      "name": "File is different",
-      "type": "n8n-nodes-base.noOp",
-      "position": [
-        1536,
-        976
-      ],
-      "typeVersion": 1
-    },
-    {
-      "parameters": {},
-      "id": "3c75faad-fe4c-4986-a846-21590ec1d958",
-      "name": "File is new",
-      "type": "n8n-nodes-base.noOp",
-      "position": [
-        1536,
-        1136
       ],
       "typeVersion": 1
     },
@@ -519,22 +424,6 @@
     },
     {
       "parameters": {
-        "content": "## Main workflow loop",
-        "height": 434.88564057365943,
-        "width": 886.4410237965205,
-        "color": 7
-      },
-      "id": "29964e87-aa4f-4c47-9031-23c7bb99df55",
-      "name": "Sticky Note2",
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        48,
-        144
-      ],
-      "typeVersion": 1
-    },
-    {
-      "parameters": {
         "resource": "file",
         "operation": "get",
         "owner": {
@@ -555,8 +444,8 @@
       "name": "Get file data",
       "type": "n8n-nodes-base.github",
       "position": [
-        688,
-        720
+        224,
+        832
       ],
       "typeVersion": 1,
       "alwaysOutputData": true,
@@ -599,26 +488,10 @@
       "name": "Globals",
       "type": "n8n-nodes-base.set",
       "position": [
-        464,
-        880
+        -16,
+        832
       ],
       "typeVersion": 3.4
-    },
-    {
-      "parameters": {
-        "content": "## Edit this node 👇",
-        "height": 80,
-        "width": 150,
-        "color": 4
-      },
-      "id": "c03ec445-6805-4fe7-b859-a54377846807",
-      "name": "Sticky Note3",
-      "type": "n8n-nodes-base.stickyNote",
-      "position": [
-        448,
-        752
-      ],
-      "typeVersion": 1
     },
     {
       "parameters": {
@@ -662,95 +535,6 @@
     },
     {
       "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "12cad226-e091-4bbb-aed9-a8e01311772c",
-              "name": "tags[0].name",
-              "type": "string",
-              "value": "={{ $('Execute Workflow Trigger').item.json.tags[0].name }}/"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "5f34ca2d-2ea1-4722-a2e5-e39ac2d61c78",
-      "name": "/",
-      "type": "n8n-nodes-base.set",
-      "position": [
-        224,
-        768
-      ],
-      "typeVersion": 3.4
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "version": 2,
-                  "leftValue": "",
-                  "caseSensitive": true,
-                  "typeValidation": "strict"
-                },
-                "combinator": "and",
-                "conditions": [
-                  {
-                    "operator": {
-                      "type": "object",
-                      "operation": "exists",
-                      "singleValue": true
-                    },
-                    "leftValue": "={{ $json.tags[0] }}",
-                    "rightValue": ""
-                  }
-                ]
-              },
-              "renameOutput": true,
-              "outputKey": "tag"
-            },
-            {
-              "conditions": {
-                "options": {
-                  "version": 2,
-                  "leftValue": "",
-                  "caseSensitive": true,
-                  "typeValidation": "strict"
-                },
-                "combinator": "and",
-                "conditions": [
-                  {
-                    "id": "2656fbe3-fe35-4770-9c03-9a455ec618e4",
-                    "operator": {
-                      "type": "object",
-                      "operation": "notExists",
-                      "singleValue": true
-                    },
-                    "leftValue": "={{ $json.tags[0] }}",
-                    "rightValue": ""
-                  }
-                ]
-              },
-              "renameOutput": true,
-              "outputKey": "none"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "285f63f4-b311-4ae5-91a9-9b276cb6e12c",
-      "name": "tag?",
-      "type": "n8n-nodes-base.switch",
-      "position": [
-        -16,
-        880
-      ],
-      "typeVersion": 3.2
-    },
-    {
-      "parameters": {
         "conditions": {
           "options": {
             "version": 1,
@@ -788,8 +572,8 @@
       "name": "If file too large",
       "type": "n8n-nodes-base.if",
       "position": [
-        880,
-        720
+        480,
+        832
       ],
       "typeVersion": 2
     }
@@ -801,6 +585,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-28T23:22:35.000Z",
-  "versionId": "a913fcc5-5af3-4bd9-9e40-00aff616c7b8"
+  "updatedAt": "2025-08-28T23:23:37.000Z",
+  "versionId": "d6abb035-7dd6-4546-8b19-030c18ae8e3a"
 }
