@@ -1,0 +1,228 @@
+{
+  "active": false,
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-13T16:46:36.632Z",
+  "id": "w3AvD8qJQ3TyPNG1",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Simple Sentiment Analysis Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        288,
+        176
+      ],
+      "id": "ff68c45b-9b50-4785-afd0-2e4c62ebdb6a",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sQgm1nDgqlLg6N3x",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Review",
+        "formDescription": "How satisfied are you?",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "placeholder": "Your Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Your Review",
+              "fieldType": "textarea",
+              "placeholder": "Tell me",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        112,
+        0
+      ],
+      "id": "b1f1a89a-6953-402d-90c7-f6f7baa2fd0f",
+      "name": "On form submission",
+      "webhookId": "9e8abb14-ba0d-408d-bec2-cbb62881e8cf"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json['Your Review'] }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are an expert in sentiment analysis.\nYou conduct evaluations and determine which of the three options applies!\n\nPositive\nNegative\nNeutral\nYou respond with only one word.\n\n"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        336,
+        0
+      ],
+      "id": "830541b3-6d23-4eda-bc40-ef35fd13ab27",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "13cBBwg0TNbbvcn2pbaf-sVbLxAHolws8HlZqKQop1T4",
+          "mode": "list",
+          "cachedResultName": "This is a Test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13cBBwg0TNbbvcn2pbaf-sVbLxAHolws8HlZqKQop1T4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13cBBwg0TNbbvcn2pbaf-sVbLxAHolws8HlZqKQop1T4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('On form submission').item.json.Name }}",
+            "Review": "={{ $json.text }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Review",
+              "displayName": "Review",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        704,
+        0
+      ],
+      "id": "d587eb43-5a2a-4342-b18e-225122a80fcf",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zQDGxhNE1O5PANgU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "sanjaygirip@gmail.com",
+        "subject": "=Review -  {{ $json.Review }}",
+        "message": "={{ $json.Name }} - {{ $('On form submission').item.json['Your Review'] }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        912,
+        0
+      ],
+      "id": "035d5386-6b52-4fd0-884d-ca39a6f2e7dc",
+      "name": "Send a message",
+      "webhookId": "eca37052-4cf8-40b6-944b-db7a75deaafc",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "RJv66hwjTioWAQiH",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-14T01:45:30.000Z",
+  "versionId": "17babfd8-e7ae-4233-a953-004de38db9b4"
+}
