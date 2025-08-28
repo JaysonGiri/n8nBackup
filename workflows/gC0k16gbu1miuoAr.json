@@ -23,17 +23,6 @@
         ]
       ]
     },
-    "Get File": {
-      "main": [
-        [
-          {
-            "node": "Merge Items",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Merge Items": {
       "main": [
         [
@@ -49,32 +38,7 @@
       "main": [
         [
           {
-            "node": "Check Status",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Check Status": {
-      "main": [
-        [
-          {
-            "node": "Return",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Edit existing file",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "Create new file",
+            "node": "Switch",
             "type": "main",
             "index": 0
           }
@@ -119,7 +83,7 @@
       "main": [
         [
           {
-            "node": "If file too large",
+            "node": "Merge Items",
             "type": "main",
             "index": 0
           }
@@ -164,18 +128,25 @@
         ]
       ]
     },
-    "If file too large": {
+    "Switch": {
       "main": [
         [
           {
-            "node": "Get File",
+            "node": "Return",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "Merge Items",
+            "node": "Edit existing file",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create new file",
             "type": "main",
             "index": 0
           }
@@ -240,24 +211,10 @@
       "name": "Return",
       "type": "n8n-nodes-base.set",
       "position": [
-        1984,
-        816
+        1760,
+        832
       ],
       "typeVersion": 3.3
-    },
-    {
-      "parameters": {
-        "url": "={{ $json.download_url }}",
-        "options": {}
-      },
-      "id": "07005645-e9d1-4774-a9a0-3ed9cfb41912",
-      "name": "Get File",
-      "type": "n8n-nodes-base.httpRequest",
-      "position": [
-        704,
-        736
-      ],
-      "typeVersion": 4.2
     },
     {
       "parameters": {},
@@ -265,8 +222,8 @@
       "name": "Merge Items",
       "type": "n8n-nodes-base.merge",
       "position": [
-        880,
-        976
+        416,
+        1040
       ],
       "typeVersion": 2
     },
@@ -278,37 +235,8 @@
       "name": "isDiffOrNew",
       "type": "n8n-nodes-base.code",
       "position": [
-        1088,
-        976
-      ],
-      "typeVersion": 1
-    },
-    {
-      "parameters": {
-        "dataType": "string",
-        "value1": "={{$json.github_status}}",
-        "rules": {
-          "rules": [
-            {
-              "value2": "same"
-            },
-            {
-              "value2": "different",
-              "output": 1
-            },
-            {
-              "value2": "new",
-              "output": 2
-            }
-          ]
-        }
-      },
-      "id": "aafb877e-f91f-443f-8ad6-9dc529327a08",
-      "name": "Check Status",
-      "type": "n8n-nodes-base.switch",
-      "position": [
-        1312,
-        976
+        688,
+        1040
       ],
       "typeVersion": 1
     },
@@ -333,8 +261,8 @@
       "name": "Create new file",
       "type": "n8n-nodes-base.github",
       "position": [
-        1744,
-        1136
+        1488,
+        1200
       ],
       "typeVersion": 1,
       "webhookId": "7547434e-4f34-4157-8690-4e91ab7a15f4",
@@ -367,8 +295,8 @@
       "name": "Edit existing file",
       "type": "n8n-nodes-base.github",
       "position": [
-        1744,
-        960
+        1488,
+        1008
       ],
       "typeVersion": 1,
       "webhookId": "00851807-afea-4308-a651-747c6e44d8f9",
@@ -414,8 +342,8 @@
       "name": "Get file data",
       "type": "n8n-nodes-base.github",
       "position": [
-        224,
-        832
+        192,
+        880
       ],
       "typeVersion": 1,
       "alwaysOutputData": true,
@@ -458,8 +386,8 @@
       "name": "Globals",
       "type": "n8n-nodes-base.set",
       "position": [
-        -16,
-        832
+        -32,
+        880
       ],
       "typeVersion": 3.4
     },
@@ -505,47 +433,88 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "version": 1,
-            "leftValue": "",
-            "caseSensitive": true,
-            "typeValidation": "strict"
-          },
-          "combinator": "and",
-          "conditions": [
+        "rules": {
+          "values": [
             {
-              "id": "45ce825e-9fa6-430c-8931-9aaf22c42585",
-              "operator": {
-                "type": "string",
-                "operation": "empty",
-                "singleValue": true
-              },
-              "leftValue": "={{ $json.content }}",
-              "rightValue": ""
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{$json.github_status}}",
+                    "rightValue": "same",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "53dbe6b7-fd03-4fdd-9fde-6016b7686cab"
+                  }
+                ],
+                "combinator": "and"
+              }
             },
             {
-              "id": "9619a55f-7fb1-4f24-b1a7-7aeb82365806",
-              "operator": {
-                "type": "string",
-                "operation": "notExists",
-                "singleValue": true
-              },
-              "leftValue": "={{ $json.error }}",
-              "rightValue": ""
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f7cd40d2-c2db-43be-88c3-80531eaecb9f",
+                    "leftValue": "={{$json.github_status}}",
+                    "rightValue": "different",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f176997a-69d7-4a59-aea1-5211ac9971a2",
+                    "leftValue": "={{$json.github_status}}",
+                    "rightValue": "new",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
             }
           ]
         },
         "options": {}
       },
-      "id": "bfd1592f-f6bf-4142-9c34-4571367db7e0",
-      "name": "If file too large",
-      "type": "n8n-nodes-base.if",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
       "position": [
-        480,
-        832
+        1072,
+        1024
       ],
-      "typeVersion": 2
+      "id": "b636a90e-f7db-4380-b4b1-c70d4715171f",
+      "name": "Switch"
     }
   ],
   "pinData": {},
@@ -555,6 +524,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-28T23:24:37.000Z",
-  "versionId": "5694609d-430d-4701-88cb-5a79dca5fba6"
+  "updatedAt": "2025-08-28T23:30:32.000Z",
+  "versionId": "27c7265f-f5af-409d-8cd9-4183c3b939ae"
 }
