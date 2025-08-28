@@ -115,17 +115,6 @@
         ]
       ]
     },
-    "Schedule Trigger": {
-      "main": [
-        [
-          {
-            "node": "n8n",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Get file data": {
       "main": [
         [
@@ -200,7 +189,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "My workflow",
+  "name": "Updated Backup",
   "nodes": [
     {
       "parameters": {},
@@ -209,7 +198,7 @@
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
         80,
-        224
+        320
       ],
       "typeVersion": 1
     },
@@ -405,25 +394,6 @@
     },
     {
       "parameters": {
-        "rule": {
-          "interval": [
-            {
-              "triggerAtHour": 7
-            }
-          ]
-        }
-      },
-      "id": "cf5a4e73-ddd8-41b6-bc61-cad96751e8e9",
-      "name": "Schedule Trigger",
-      "type": "n8n-nodes-base.scheduleTrigger",
-      "position": [
-        80,
-        416
-      ],
-      "typeVersion": 1.2
-    },
-    {
-      "parameters": {
         "resource": "file",
         "operation": "get",
         "owner": {
@@ -585,6 +555,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-28T23:23:37.000Z",
-  "versionId": "d6abb035-7dd6-4546-8b19-030c18ae8e3a"
+  "updatedAt": "2025-08-28T23:24:37.000Z",
+  "versionId": "5694609d-430d-4701-88cb-5a79dca5fba6"
 }
