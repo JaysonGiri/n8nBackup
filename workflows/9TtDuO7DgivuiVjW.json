@@ -25,7 +25,13 @@
     },
     "If": {
       "main": [
-        [],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
         [
           {
             "node": "Send a message",
@@ -196,6 +202,17 @@
           "name": "Gmail account"
         }
       }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        512,
+        -80
+      ],
+      "id": "dc362853-f274-439f-b0fe-0defaa95dae0",
+      "name": "No Operation, do nothing"
     }
   ],
   "pinData": {},
@@ -205,6 +222,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-28T19:01:27.000Z",
-  "versionId": "0a830d92-bbfd-4bd7-a4ab-7df7aca0ea16"
+  "updatedAt": "2025-08-28T23:38:33.000Z",
+  "versionId": "522f30c0-d0f6-4f9f-a320-82badc6a736a"
 }
