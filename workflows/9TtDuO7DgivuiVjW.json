@@ -1,0 +1,210 @@
+{
+  "active": false,
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-20T15:59:07.046Z",
+  "id": "9TtDuO7DgivuiVjW",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Review Check",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Review",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Your Name",
+              "placeholder": "What is your name?",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Rating",
+              "fieldType": "number",
+              "placeholder": "1-5",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -112,
+        16
+      ],
+      "id": "020a48c0-0fae-43a7-b80f-d4658f4c52b0",
+      "name": "On form submission",
+      "webhookId": "bfd097d9-5395-436a-a57c-17922d295516"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "13cBBwg0TNbbvcn2pbaf-sVbLxAHolws8HlZqKQop1T4",
+          "mode": "list",
+          "cachedResultName": "This is a Test",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13cBBwg0TNbbvcn2pbaf-sVbLxAHolws8HlZqKQop1T4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13cBBwg0TNbbvcn2pbaf-sVbLxAHolws8HlZqKQop1T4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json['Your Name'] }}",
+            "Review": "={{ $json.Rating }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Review",
+              "displayName": "Review",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        96,
+        16
+      ],
+      "id": "7b10f436-5081-4f9f-85a3-f214780f3658",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zQDGxhNE1O5PANgU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "83e04b14-d710-484e-9977-67d6209b4096",
+              "leftValue": "={{ $json.Review }}",
+              "rightValue": 4,
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        304,
+        16
+      ],
+      "id": "ed1d7673-0a7a-44e8-b313-a84ec9f2da00",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "sanjaygirip@gmail.com",
+        "subject": "How could we improve your experience",
+        "emailType": "text",
+        "message": "=Hey we recieved a rating of: {{ $json.Review }}\n\nCan you please provide us with some feedback on how we could improve your experience? \n\nEager to hear back from you.",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        512,
+        112
+      ],
+      "id": "b9b6b55f-c90d-4350-a67d-678da31e54bb",
+      "name": "Send a message",
+      "webhookId": "ade15326-0944-4f78-bb0b-4494d4f3e9fb",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "RJv66hwjTioWAQiH",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-28T19:01:27.000Z",
+  "versionId": "0a830d92-bbfd-4bd7-a4ab-7df7aca0ea16"
+}
