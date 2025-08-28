@@ -1,0 +1,587 @@
+{
+  "active": false,
+  "connections": {
+    "Execute workflow": {
+      "main": [
+        [
+          {
+            "node": "Set date1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Move JSON to binary": {
+      "main": [
+        [
+          {
+            "node": "Split to single items3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get file [GITHUB]1": {
+      "main": [
+        [
+          {
+            "node": "Move JSON to binary2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set date1": {
+      "main": [
+        [
+          {
+            "node": "Format date1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format date1": {
+      "main": [
+        [
+          {
+            "node": "Globals1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "List files from repository [GITHUB]1": {
+      "main": [
+        [
+          {
+            "node": "Combine file names [GITHUB]1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine file names [GITHUB]1": {
+      "main": [
+        [
+          {
+            "node": "Retrieve workflows [N8N]1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Retrieve workflows [N8N]1": {
+      "main": [
+        [
+          {
+            "node": "Move JSON to binary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split to single items3": {
+      "main": [
+        [
+          {
+            "node": "Check if file exists in repository2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload file [GITHUB]1": {
+      "main": [
+        [
+          {
+            "node": "Split to single items3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "isDiffOrNew2": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Globals1": {
+      "main": [
+        [
+          {
+            "node": "List files from repository [GITHUB]1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check if file exists in repository2": {
+      "main": [
+        [
+          {
+            "node": "n8n test",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Upload file [GITHUB]1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Move JSON to binary2": {
+      "main": [
+        [
+          {
+            "node": "isDiffOrNew2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "n8n test": {
+      "main": [
+        [
+          {
+            "node": "Get file [GITHUB]1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [],
+        [],
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-08-28T18:25:48.283Z",
+  "id": "WU20Ek7Jp3Rb44qD",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Backup",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "afb9a206-e8d9-44fb-a5e6-89eeb5ed5cf9",
+      "name": "Execute workflow",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -2224,
+        1152
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "jsonToBinary",
+        "options": {
+          "fileName": "={{ $json.name.replace(/\\s+/g, '-').toLowerCase() }}.json"
+        }
+      },
+      "id": "4713bae7-34af-4b51-966d-7fc6527670c0",
+      "name": "Move JSON to binary",
+      "type": "n8n-nodes-base.moveBinaryData",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        1104
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "={{ $('Globals1').item.json.repo.owner }}",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "={{ $('Globals1').item.json.repo.name }}",
+          "mode": "name"
+        },
+        "filePath": "={{ $json.name.replace(/\\s+/g, '-').toLowerCase() }}.json",
+        "additionalParameters": {}
+      },
+      "id": "4ba397ca-1da8-4e01-bfa2-df957fcac049",
+      "name": "Get file [GITHUB]1",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [
+        352,
+        992
+      ],
+      "webhookId": "5bb2ab39-3d3f-406f-bd91-55497df0f3e3",
+      "credentials": {
+        "githubApi": {
+          "id": "cxrXKwNklLFxRrb6",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "8207c56e-3c37-428a-aebc-afb5be40963f",
+      "name": "Set date1",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -1936,
+        1104
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.currentDate }}",
+        "format": "custom",
+        "customFormat": "dd-MM-yyyy/H:mm",
+        "options": {}
+      },
+      "id": "0d10d110-3fbb-43c3-b76c-472e4c999cc9",
+      "name": "Format date1",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -1728,
+        1104
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "list",
+        "owner": {
+          "__rl": true,
+          "value": "={{ $json.repo.owner }}",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "={{ $json.repo.name }}",
+          "mode": "name"
+        },
+        "filePath": "="
+      },
+      "id": "885f53d6-c903-4b8f-8c7d-49180b27c9a3",
+      "name": "List files from repository [GITHUB]1",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [
+        -1312,
+        1104
+      ],
+      "alwaysOutputData": true,
+      "webhookId": "328b24cf-781c-48ea-8eb2-5b652a8a63bf",
+      "credentials": {
+        "githubApi": {
+          "id": "cxrXKwNklLFxRrb6",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "aggregateItems",
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "name"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a04710b4-b2de-4d55-8832-e13cac8d7ff2",
+      "name": "Combine file names [GITHUB]1",
+      "type": "n8n-nodes-base.itemLists",
+      "typeVersion": 2.1,
+      "position": [
+        -1120,
+        1104
+      ]
+    },
+    {
+      "parameters": {
+        "filters": {},
+        "requestOptions": {}
+      },
+      "id": "c45331d5-7c8f-4a02-9d2d-507fd2763b5d",
+      "name": "Retrieve workflows [N8N]1",
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        -912,
+        1104
+      ],
+      "credentials": {
+        "n8nApi": {
+          "id": "hVtQcrogSbVsgay2",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "id": "424ebf78-627d-4da3-9dc4-cfae6fa782a7",
+      "name": "Split to single items3",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 2,
+      "position": [
+        -480,
+        1104
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "={{ $('Globals1').item.json.repo.owner }}",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "={{ $('Globals1').item.json.repo.name }}",
+          "mode": "name"
+        },
+        "filePath": "={{ $binary.data.fileName }}",
+        "binaryData": true,
+        "commitMessage": "=backup-{{ $node['Format date1'].json.formattedDate }}"
+      },
+      "id": "209d41df-746e-4cc2-9525-03117c6e6096",
+      "name": "Upload file [GITHUB]1",
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1,
+      "position": [
+        160,
+        1440
+      ],
+      "webhookId": "49107fb4-f47f-46b5-b126-c4de679447b1",
+      "credentials": {
+        "githubApi": {
+          "id": "cxrXKwNklLFxRrb6",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Debug helpers\nconsole.log(\"GitHub input:\", $input.first().json);\nconsole.log(\"N8N workflow:\", $(\"n8n test\").first().json);\n\n// Pull inputs\nconst githubFileData = $input.first().json;\nconst n8nWorkflow = $(\"n8n test\").first().json;\n\nlet result = {\n  WorkflowName: n8nWorkflow.name || 'unknown-workflow',\n  WorkflowId: n8nWorkflow.id || 'unknown-id',\n  Status: \"\",\n  Action: \"skip\",\n  Reason: \"\"\n};\n\nif (githubFileData.content) {\n  try {\n    const githubWorkflow = JSON.parse(\n      Buffer.from(githubFileData.content, 'base64').toString()\n    );\n\n    // Simple compare first\n    if (JSON.stringify(githubWorkflow) === JSON.stringify(n8nWorkflow)) {\n      result.Status = \"Same\";\n      result.Action = \"skip\";\n      result.Reason = \"No changes detected\";\n    } else {\n      result.Status = \"Different\";\n      result.Action = \"update\";\n      result.Reason = \"Workflow has changes\";\n    }\n  } catch (e) {\n    result.Status = \"Error\";\n    result.Action = \"update\";\n    result.Reason = \"Parse error: \" + e.message;\n  }\n} else if (githubFileData.message && githubFileData.message.includes(\"Not Found\")) {\n  result.Status = \"New\";\n  result.Action = \"create\";\n  result.Reason = \"File does not exist in repo\";\n} else {\n  result.Status = \"Unknown\";\n  result.Action = \"create\";\n  result.Reason = \"Unable to determine file status\";\n}\n\nreturn result;\n"
+      },
+      "id": "c2aa1c06-aa71-4805-ad66-b6a682f606d3",
+      "name": "isDiffOrNew2",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        784,
+        992
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6cf546c5-5737-4dbd-851b-17d68e0a3780",
+              "name": "repo.owner",
+              "type": "string",
+              "value": "JaysonGiri"
+            },
+            {
+              "id": "452efa28-2dc6-4ea3-a7a2-c35d100d0382",
+              "name": "repo.name",
+              "type": "string",
+              "value": "n8nBackup"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7be0151a-09db-484d-b24e-79461c231a12",
+      "name": "Globals1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -1520,
+        1104
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $node['Combine file names [GITHUB]1'].json.name }}",
+              "operation": "contains",
+              "value2": "={{ $binary.data.fileName }}"
+            }
+          ]
+        }
+      },
+      "id": "8619f54d-ab89-41f9-9b8b-27e23f22bd57",
+      "name": "Check if file exists in repository2",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -240,
+        1088
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "69c54205-ace4-4ecc-9831-1912f26a5b2e",
+      "name": "Move JSON to binary2",
+      "type": "n8n-nodes-base.moveBinaryData",
+      "typeVersion": 1,
+      "position": [
+        544,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "71a20492-2a4b-441a-9383-7ad7d3247e4d",
+      "name": "n8n test",
+      "type": "n8n-nodes-base.moveBinaryData",
+      "typeVersion": 1,
+      "position": [
+        48,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.Action }}",
+                    "rightValue": "skip",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "a25a7a53-c064-48d9-997d-a6274fb8f40c"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2e70eaf5-e273-43e3-ba6c-a4441502d693",
+                    "leftValue": "={{ $json.Action }}",
+                    "rightValue": "update",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "ad83b200-a6e0-4a2e-867c-5fff5caaa71b",
+                    "leftValue": "={{ $json.Action }}",
+                    "rightValue": "create",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        1008,
+        992
+      ],
+      "id": "dd0e846a-b422-4b99-88a6-52984098f085",
+      "name": "Switch1"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Chicago",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-28T22:56:39.000Z",
+  "versionId": "04ddfe8e-a894-4e4a-89d1-620687424814"
+}
