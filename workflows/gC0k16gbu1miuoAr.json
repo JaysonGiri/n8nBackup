@@ -139,7 +139,7 @@
         ],
         [
           {
-            "node": "Edit existing file",
+            "node": "AI Agent2",
             "type": "main",
             "index": 0
           }
@@ -147,6 +147,28 @@
         [
           {
             "node": "Create new file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent2",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        [
+          {
+            "node": "Edit existing file",
             "type": "main",
             "index": 0
           }
@@ -211,8 +233,8 @@
       "name": "Return",
       "type": "n8n-nodes-base.set",
       "position": [
-        1440,
-        864
+        1792,
+        784
       ],
       "typeVersion": 3.3
     },
@@ -261,8 +283,8 @@
       "name": "Create new file",
       "type": "n8n-nodes-base.github",
       "position": [
-        1168,
-        1232
+        1344,
+        1392
       ],
       "typeVersion": 1,
       "webhookId": "7547434e-4f34-4157-8690-4e91ab7a15f4",
@@ -295,8 +317,8 @@
       "name": "Edit existing file",
       "type": "n8n-nodes-base.github",
       "position": [
-        1168,
-        1040
+        1504,
+        976
       ],
       "typeVersion": 1,
       "webhookId": "00851807-afea-4308-a651-747c6e44d8f9",
@@ -515,6 +537,42 @@
       ],
       "id": "b636a90e-f7db-4380-b4b1-c70d4715171f",
       "name": "Switch"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{$('isDiffOrNew').item.json[\"n8n_data_stringy\"]}}",
+        "options": {
+          "systemMessage": "You are an expert developer of n8n workflows, so you know how to read n8n workflow json files and understand the nodes that make up the workflow..\n\nRead the git patch diff calmly from top to bottom, paying attention to each addition, deletion, and unchanged line carefully. ignore changes in dates and locations, but do identify new workflows and nodes in existing workflows added. Focus on changes, not only the last or first lines, and figure out the main idea of the input. If complex, break it down into smaller parts to organize your thoughts.\nWrite a commit message based on the git diff provided. Read the diff below and write a commit message that accurately describes the changes made. Try to make sure you describe why instead of what on your description message.\nYour message is to add a kind of explanation for future consulting, so be clear and concise.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        1168,
+        1024
+      ],
+      "id": "0102abf0-0215-4556-be8b-319f3f9c3603",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1184,
+        1216
+      ],
+      "id": "3aa3cf60-db7f-4e65-a59b-186f289e23c2",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "sQgm1nDgqlLg6N3x",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -524,6 +582,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-08-28T23:31:26.000Z",
-  "versionId": "06ca2ee2-e54e-45a9-96c2-500599173605"
+  "updatedAt": "2025-08-28T23:38:47.000Z",
+  "versionId": "4371693f-a237-4941-8249-7d53a3fa9ebc"
 }
