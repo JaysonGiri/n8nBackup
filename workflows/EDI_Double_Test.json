@@ -1,0 +1,716 @@
+{
+  "active": false,
+  "connections": {
+    "Get Email": {
+      "main": [
+        [
+          {
+            "node": "Extract Body",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Healthcare Transaction Type": {
+      "main": [
+        [
+          {
+            "node": "Healthcare Claims",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Other Healthcare Transactions",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Body": {
+      "main": [
+        [
+          {
+            "node": "Parse Healthcare EDI Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Trigger": {
+      "main": [
+        [
+          {
+            "node": "Subject includes Healthcare EDI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Healthcare Claim Information": {
+      "main": [
+        [
+          {
+            "node": "Claim Info + Hierarchical Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Healthcare EDI Message": {
+      "main": [
+        [
+          {
+            "node": "Healthcare Claim Information",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Flatten Healthcare Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out by Hierarchical Level": {
+      "main": [
+        [
+          {
+            "node": "Claim Info + Hierarchical Data",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Subject includes Healthcare EDI": {
+      "main": [
+        [
+          {
+            "node": "Get Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claim Info + Hierarchical Data": {
+      "main": [
+        [
+          {
+            "node": "Healthcare Transaction Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Flatten Healthcare Data": {
+      "main": [
+        [
+          {
+            "node": "Split Out by Hierarchical Level",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-30T00:56:12.078Z",
+  "id": "A0RDSeFE5fDZQfEh",
+  "isArchived": false,
+  "meta": null,
+  "name": "EDI Double Test",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a55ebbb4-3eba-4584-8894-9e8d623d498f",
+              "name": "documentType",
+              "type": "string",
+              "value": "={{ $json.summary.documentType }}"
+            },
+            {
+              "id": "cbbff4da-4679-4258-bc3c-848075c5f1df",
+              "name": "claimReferenceId",
+              "type": "string",
+              "value": "={{ $json.summary.claimReferenceId }}"
+            },
+            {
+              "id": "a2eb5f07-8d1b-4c3a-b08b-a785045aeb34",
+              "name": "claimDate",
+              "type": "string",
+              "value": "={{ $json.summary.claimDate }}"
+            },
+            {
+              "id": "7e319d29-463b-4875-b556-684cb0c06c59",
+              "name": "submitterName",
+              "type": "string",
+              "value": "={{ $json.summary.submitterName }}"
+            },
+            {
+              "id": "5c9fc86c-e5c0-411f-a7d5-1121b5779906",
+              "name": "billingProviderName",
+              "type": "string",
+              "value": "={{ $json.summary.billingProviderName }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "59fed3dc-9704-46b4-b135-207e21320610",
+      "name": "Healthcare Claim Information",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -192,
+        32
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1dRfOtNpUeNH_ueYwaSLcqm3BrjVc25V1DaFQ_A_gaa4",
+          "mode": "list",
+          "cachedResultName": "Healthcare EDI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dRfOtNpUeNH_ueYwaSLcqm3BrjVc25V1DaFQ_A_gaa4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dRfOtNpUeNH_ueYwaSLcqm3BrjVc25V1DaFQ_A_gaa4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "bdbf03e6-b0bd-4cc8-a883-a03a2bd7a8be",
+      "name": "Healthcare Claims",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        544,
+        80
+      ],
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zQDGxhNE1O5PANgU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1dRfOtNpUeNH_ueYwaSLcqm3BrjVc25V1DaFQ_A_gaa4",
+          "mode": "list",
+          "cachedResultName": "Healthcare EDI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dRfOtNpUeNH_ueYwaSLcqm3BrjVc25V1DaFQ_A_gaa4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dRfOtNpUeNH_ueYwaSLcqm3BrjVc25V1DaFQ_A_gaa4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "documentType",
+              "displayName": "documentType",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "claimReferenceId",
+              "displayName": "claimReferenceId",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "claimDate",
+              "displayName": "claimDate",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "submitterName",
+              "displayName": "submitterName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "billingProviderName",
+              "displayName": "billingProviderName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "interchange_Sender_ID",
+              "displayName": "interchange_Sender_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "interchange_Receiver_ID",
+              "displayName": "interchange_Receiver_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "interchange_Date",
+              "displayName": "interchange_Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "transaction_Set_ID",
+              "displayName": "transaction_Set_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "submitter_Name",
+              "displayName": "submitter_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "receiver_Name",
+              "displayName": "receiver_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "billing_Provider_Name",
+              "displayName": "billing_Provider_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "billing_Provider_Address_1",
+              "displayName": "billing_Provider_Address_1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "billing_Provider_City",
+              "displayName": "billing_Provider_City",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "billing_Provider_State",
+              "displayName": "billing_Provider_State",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "billing_Provider_Zip",
+              "displayName": "billing_Provider_Zip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hl_ID",
+              "displayName": "hl_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hl_Level_Code",
+              "displayName": "hl_Level_Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hl_Description",
+              "displayName": "hl_Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "provider_Taxonomy_Code",
+              "displayName": "provider_Taxonomy_Code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "subscriber_Filing_Indicator",
+              "displayName": "subscriber_Filing_Indicator",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "patient_First_Name",
+              "displayName": "patient_First_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "patient_Last_Name",
+              "displayName": "patient_Last_Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "patient_ID",
+              "displayName": "patient_ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "345ebf01-7e05-4327-a8ab-ce73bc8d8692",
+      "name": "Other Healthcare Transactions",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        560,
+        224
+      ],
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zQDGxhNE1O5PANgU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fc591c63-edfe-4e6d-8074-6ab3079988c8",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.transaction_Set_ID }}",
+              "rightValue": "837"
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "5b3f09e4-41da-44ca-8d3b-41940296249c",
+      "name": "Healthcare Transaction Type",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        320,
+        160
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "id": "7eb88360-a621-4daa-afb4-d4a46b3b6e1f",
+      "name": "Email Trigger",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "position": [
+        -1248,
+        176
+      ],
+      "typeVersion": 1.2,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "RJv66hwjTioWAQiH",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "3bc8a327-7e66-48e3-b442-38125b6f8670",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              },
+              "leftValue": "={{ $json.Subject }}",
+              "rightValue": "Healthcare EDI"
+            },
+            {
+              "id": "4cd9b438-8e77-49f4-c553-49236c7f9781",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              },
+              "leftValue": "={{ $json.Subject }}",
+              "rightValue": "837"
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "040f961a-3d48-4ab2-a4b7-481cc1ec9a5f",
+      "name": "Subject includes Healthcare EDI",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        -1024,
+        176
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "38358bb8-1b5a-4adc-816d-6710f53f7c0d",
+              "name": "body",
+              "type": "string",
+              "value": "={{ $json.text.replace(/\\\\n/g, '\\n').replace(/^'|'$/g, '') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "84565e1c-b02e-4989-ae74-aa3c99344b79",
+      "name": "Extract Body",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -656,
+        176
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "messageId": "={{ $json.id }}",
+        "simple": false,
+        "options": {}
+      },
+      "id": "4dee2dec-c350-4976-adbb-cea57004902d",
+      "name": "Get Email",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        -800,
+        176
+      ],
+      "typeVersion": 2.1,
+      "webhookId": "209a66af-e41c-4795-aba8-071c58c1751a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "RJv66hwjTioWAQiH",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Healthcare EDI X12 837 Parser function for n8n JavaScript node\nfunction parseHealthcareEDI(ediMessage) {\n  const result = {\n    interchangeHeader: {},\n    groupHeader: {},\n    transactionHeader: {},\n    billingProvider: {},\n    submitter: {},\n    receiver: {},\n    hierarchicalLoops: [],\n    summary: {}\n  };\n  \n  const segments = ediMessage.split('~').filter(segment => segment.trim().length > 0);\n  \n  let currentHL = null;\n  let currentProvider = null;\n  let currentPatient = null;\n  \n  for (const segment of segments) {\n    const elements = segment.trim().split('*');\n    const segmentId = elements[0];\n    \n    switch (segmentId) {\n      case 'ISA':\n        result.interchangeHeader = {\n          senderId: elements[6]?.trim(),\n          receiverId: elements[8]?.trim(),\n          date: elements[9],\n          time: elements[10],\n          controlNumber: elements[13]\n        };\n        break;\n        \n      case 'GS':\n        result.groupHeader = {\n          functionalCode: elements[1],\n          applicationSender: elements[2],\n          applicationReceiver: elements[3],\n          date: elements[4],\n          time: elements[5]\n        };\n        break;\n        \n      case 'ST':\n        result.transactionHeader = {\n          transactionSetId: elements[1],\n          controlNumber: elements[2]\n        };\n        break;\n        \n      case 'BHT':\n        result.claimInfo = {\n          referenceIdentification: elements[3],\n          date: elements[4],\n          transactionType: elements[6]\n        };\n        break;\n        \n      case 'NM1':\n        const entityCode = elements[1];\n        const nameObject = {\n          entityIdCode: elements[1],\n          entityType: elements[2],\n          organizationName: elements[3],\n          firstName: elements[4],\n          lastName: elements[6],\n          idCodeQualifier: elements[8],\n          idCode: elements[9]\n        };\n        \n        switch (entityCode) {\n          case '41':\n            result.submitter = { ...nameObject, description: 'Submitter' };\n            break;\n          case '40':\n            result.receiver = { ...nameObject, description: 'Receiver' };\n            break;\n          case '85':\n            result.billingProvider = { ...nameObject, description: 'Billing Provider' };\n            break;\n          case 'IL':\n            if (currentPatient) {\n              currentPatient.subscriber = { ...nameObject, description: 'Subscriber/Patient' };\n            }\n            break;\n        }\n        break;\n        \n      case 'PER':\n        const contactInfo = {\n          name: elements[2],\n          communicationNumber1: elements[4],\n          communicationNumber2: elements[6]\n        };\n        if (result.submitter && !result.submitter.contact) {\n          result.submitter.contact = contactInfo;\n        }\n        break;\n        \n      case 'HL':\n        currentHL = {\n          hierarchicalId: elements[1],\n          hierarchicalParent: elements[2],\n          hierarchicalLevelCode: elements[3],\n          hierarchicalChildCode: elements[4]\n        };\n        \n        switch (elements[3]) {\n          case '20':\n            currentHL.description = 'Information Source (Billing Provider)';\n            currentProvider = currentHL;\n            break;\n          case '22':\n            currentHL.description = 'Subscriber';\n            currentPatient = currentHL;\n            break;\n          case '23':\n            currentHL.description = 'Patient';\n            currentPatient = currentHL;\n            break;\n        }\n        \n        result.hierarchicalLoops.push(currentHL);\n        break;\n        \n      case 'PRV':\n        if (currentProvider) {\n          currentProvider.providerInfo = {\n            providerCode: elements[1],\n            taxonomyCode: elements[4]\n          };\n        }\n        break;\n        \n      case 'N3':\n        const address = {\n          addressLine1: elements[1],\n          addressLine2: elements[2]\n        };\n        if (result.billingProvider && !result.billingProvider.address) {\n          result.billingProvider.address = address;\n        }\n        break;\n        \n      case 'N4':\n        const location = {\n          city: elements[1],\n          state: elements[2],\n          postalCode: elements[3]\n        };\n        if (result.billingProvider && result.billingProvider.address) {\n          result.billingProvider.address = { ...result.billingProvider.address, ...location };\n        }\n        break;\n        \n      case 'SBR':\n        if (currentPatient) {\n          currentPatient.subscriberInfo = {\n            payerResponsibilitySequence: elements[1],\n            individualRelationshipCode: elements[2],\n            claimFilingIndicator: elements[9]\n          };\n        }\n        break;\n    }\n  }\n  \n  result.summary = {\n    documentType: 'Healthcare Claim (837)',\n    submitterName: result.submitter?.organizationName || '',\n    billingProviderName: result.billingProvider?.organizationName || '',\n    claimDate: result.claimInfo?.date || '',\n    claimReferenceId: result.claimInfo?.referenceIdentification || '',\n    hierarchicalLevels: result.hierarchicalLoops.length\n  };\n  \n  return result;\n}\n\nconst ediMessage = $input.first().json.body;\n\nif (!ediMessage) {\n  throw new Error('No EDI message found in input.');\n}\n\nconst parsedData = parseHealthcareEDI(ediMessage);\nreturn { json: parsedData };"
+      },
+      "id": "7ca4bffb-a641-486e-afdf-691eca2534a3",
+      "name": "Parse Healthcare EDI Message",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        -496,
+        176
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "mode": "combineBySql"
+      },
+      "id": "30968e6d-ae47-4787-8905-76dc1e37613e",
+      "name": "Claim Info + Hierarchical Data",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        128,
+        160
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "jsCode": "function transformHealthcareToFlattened(parsedEDI) {\n  const flattened = [];\n  \n  const headerObj = {\n    interchange_Sender_ID: parsedEDI.interchangeHeader?.senderId?.trim() || '',\n    interchange_Receiver_ID: parsedEDI.interchangeHeader?.receiverId?.trim() || '',\n    interchange_Date: parsedEDI.interchangeHeader?.date || '',\n    transaction_Set_ID: parsedEDI.transactionHeader?.transactionSetId || '',\n    submitter_Name: parsedEDI.submitter?.organizationName || '',\n    receiver_Name: parsedEDI.receiver?.organizationName || '',\n    billing_Provider_Name: parsedEDI.billingProvider?.organizationName || '',\n    billing_Provider_Address_1: parsedEDI.billingProvider?.address?.addressLine1 || '',\n    billing_Provider_City: parsedEDI.billingProvider?.address?.city || '',\n    billing_Provider_State: parsedEDI.billingProvider?.address?.state || '',\n    billing_Provider_Zip: parsedEDI.billingProvider?.address?.postalCode || ''\n  };\n  \n  if (parsedEDI.hierarchicalLoops && Array.isArray(parsedEDI.hierarchicalLoops)) {\n    parsedEDI.hierarchicalLoops.forEach((hl, index) => {\n      const hlObj = {\n        hl_ID: hl.hierarchicalId || '',\n        hl_Level_Code: hl.hierarchicalLevelCode || '',\n        hl_Description: hl.description || '',\n        provider_Taxonomy_Code: hl.providerInfo?.taxonomyCode || '',\n        subscriber_Filing_Indicator: hl.subscriberInfo?.claimFilingIndicator || '',\n        patient_First_Name: hl.subscriber?.firstName || '',\n        patient_Last_Name: hl.subscriber?.lastName || '',\n        patient_ID: hl.subscriber?.idCode || ''\n      };\n      \n      const flatRow = {\n        ...headerObj,\n        ...hlObj\n      };\n      \n      flattened.push(flatRow);\n    });\n  }\n  \n  if (flattened.length === 0) {\n    flattened.push(headerObj);\n  }\n  \n  return flattened;\n}\n\nconst parsedEDI = $input.all()[0].json;\n\nif (!parsedEDI || !parsedEDI.interchangeHeader) {\n  throw new Error('Invalid healthcare EDI data format.');\n}\n\nconst flattenedData = transformHealthcareToFlattened(parsedEDI);\nreturn { json: { data: flattenedData } };"
+      },
+      "id": "fadb411c-2a2d-4a0a-961d-6fe74a0d8e9f",
+      "name": "Flatten Healthcare Data",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        -304,
+        176
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "id": "3fdef459-0e81-464d-ae93-7bfce71e84f5",
+      "name": "Split Out by Hierarchical Level",
+      "type": "n8n-nodes-base.splitOut",
+      "position": [
+        -112,
+        176
+      ],
+      "typeVersion": 1
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-30T03:35:30.000Z",
+  "versionId": "5739908f-c43b-42c4-8cef-7a39cdff05e8"
+}
