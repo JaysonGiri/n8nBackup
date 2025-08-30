@@ -1,0 +1,551 @@
+{
+  "active": false,
+  "connections": {
+    "Order Information": {
+      "main": [
+        [
+          {
+            "node": "Order Info + Orderlines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Order Type": {
+      "main": [
+        [
+          {
+            "node": "Return Orders",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Outbound Orders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email Trigger": {
+      "main": [
+        [
+          {
+            "node": "Subject includes EDI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Subject includes EDI": {
+      "main": [
+        [
+          {
+            "node": "Get Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Body": {
+      "main": [
+        [
+          {
+            "node": "Parse EDI Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Email": {
+      "main": [
+        [
+          {
+            "node": "Extract Body",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse EDI Message": {
+      "main": [
+        [
+          {
+            "node": "Order Information",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Flatten Data to Orderlines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Order Info + Orderlines": {
+      "main": [
+        [
+          {
+            "node": "Order Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Flatten Data to Orderlines": {
+      "main": [
+        [
+          {
+            "node": "Split Out by Line",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out by Line": {
+      "main": [
+        [
+          {
+            "node": "Order Info + Orderlines",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-30T00:43:58.289Z",
+  "id": "3gi1TMK669Xj64Kl",
+  "isArchived": false,
+  "meta": null,
+  "name": "EDI Test",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a55ebbb4-3eba-4584-8894-9e8d623d498f",
+              "name": "documentType",
+              "type": "string",
+              "value": "={{ $json.summary.documentType }}"
+            },
+            {
+              "id": "cbbff4da-4679-4258-bc3c-848075c5f1df",
+              "name": "documentNumber",
+              "type": "string",
+              "value": "={{ $json.summary.documentNumber }}"
+            },
+            {
+              "id": "a2eb5f07-8d1b-4c3a-b08b-a785045aeb34",
+              "name": "orderDate",
+              "type": "string",
+              "value": "={{ $json.summary.orderDate }}"
+            },
+            {
+              "id": "7e319d29-463b-4875-b556-684cb0c06c59",
+              "name": "lineItemCount",
+              "type": "string",
+              "value": "={{ $json.summary.lineItemCount }}"
+            },
+            {
+              "id": "5c9fc86c-e5c0-411f-a7d5-1121b5779906",
+              "name": "totalQuantity",
+              "type": "string",
+              "value": "={{ $json.summary.totalQuantity }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "cc644d36-4d57-4759-a3cd-4a91d5a38642",
+      "name": "Order Information",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        752,
+        288
+      ],
+      "notesInFlow": true,
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1dRfOtNpUeNH_ueYwaSLcqm3BrjVc25V1DaFQ_A_gaa4",
+          "mode": "list",
+          "cachedResultName": "Healthcare EDI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dRfOtNpUeNH_ueYwaSLcqm3BrjVc25V1DaFQ_A_gaa4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dRfOtNpUeNH_ueYwaSLcqm3BrjVc25V1DaFQ_A_gaa4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "44fa62da-18f7-416a-8ea1-ac6f1029b07f",
+      "name": "Return Orders",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        1488,
+        336
+      ],
+      "notesInFlow": true,
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zQDGxhNE1O5PANgU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1dRfOtNpUeNH_ueYwaSLcqm3BrjVc25V1DaFQ_A_gaa4",
+          "mode": "list",
+          "cachedResultName": "Healthcare EDI",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dRfOtNpUeNH_ueYwaSLcqm3BrjVc25V1DaFQ_A_gaa4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dRfOtNpUeNH_ueYwaSLcqm3BrjVc25V1DaFQ_A_gaa4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "d82fdbbe-2c92-42a4-8e16-43a87e7c7397",
+      "name": "Outbound Orders",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        1504,
+        480
+      ],
+      "notesInFlow": true,
+      "typeVersion": 4.5,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "zQDGxhNE1O5PANgU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "fc591c63-edfe-4e6d-8074-6ab3079988c8",
+              "operator": {
+                "name": "filter.operator.equals",
+                "type": "string",
+                "operation": "equals"
+              },
+              "leftValue": "={{ $json.documentType }}",
+              "rightValue": "Return Order"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "42c35482-fa0d-4e00-b15e-6790279ce127",
+      "name": "Order Type",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1264,
+        416
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "content": "### 1. Workflow Trigger with Gmail Trigger\nThe workflow is triggered by a new email received in your Gmail mailbox. \nIf the subject includes the string \"EDI\" we proceed, if not we do nothing.\n\n#### How to setup?\n- **Gmail Trigger Node:** set up your Gmail API credentials\n[Learn more about the Gmail Trigger Node](https://docs.n8n.io/integrations/builtin/trigger-nodes/n8n-nodes-base.gmailtrigger)\n",
+        "height": 620,
+        "width": 380,
+        "color": 7
+      },
+      "id": "62e8a19b-2c50-425f-9427-dedb0e39e8ad",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -320,
+        48
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### Example of EDI Message\nYou can send yourself this email to test the workflow.\n\nUNA:+.? '\nUNB+UNOC:3+SENDER_ID+RECEIVER_ID+240317:1200+ORDER67890'\nUNH+1+ORDERS:D:96A:UN'\nBGM+220+PO56789012+9'\nDTM+137:20250318:102'      \nDTM+2:20250325:102'        \nDTM+10:20250324:102'      \nNAD+BY+BUYER_ABC::91'\nNAD+SU+SUPPLIER_XYZ::91'\nNAD+DP+WAREHOUSE_001::91'\nNAD+DP+Main Distribution Center'\nLIN+1++987654:IN'\nIMD+F++:::Product X Description'\nQTY+21:50:EA'\nPRI+AAA:20.00'\nLIN+2++654987:IN'\nIMD+F++:::Product Y Description'\nQTY+21:150:EA'\nPRI+AAA:12.75'\nUNT+10+1'\nUNZ+1+ORDER67890'UNA:+.? '\nUNB+UNOC:3+SENDER_ID+RECEIVER_ID+240317:1200+ORDER67890'\nUNH+1+ORDERS:D:96A:UN'\nBGM+220+PO56789012+9'\nDTM+137:20250318:102'      \nDTM+2:20250325:102'        \nDTM+10:20250324:102'      \nNAD+BY+BUYER_ABC::91'\nNAD+SU+SUPPLIER_XYZ::91'\nNAD+DP+WAREHOUSE_001::91'\nNAD+DP+Main Distribution Center'\nLIN+1++987654:IN'\nIMD+F++:::Product X Description'\nQTY+21:50:EA'\nPRI+AAA:20.00'\nLIN+2++654987:IN'\nIMD+F++:::Product Y Description'\nQTY+21:150:EA'\nPRI+AAA:12.75'\nUNT+10+1'\nUNZ+1+ORDER67890'",
+        "height": 880,
+        "width": 800
+      },
+      "id": "625f9786-5d38-48c1-b5cc-c48453f9b719",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -288,
+        720
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### 2. Get Email Body & Parse EDI Message\nThe first node extracts the email body using the ID from the trigger. This body is parsed using the code node to extract order information.\n\n#### How to setup?\n- **Gmail Node:** set up your Gmail API credentials\n[Learn more about the Gmail Node](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.gmail)\n",
+        "height": 620,
+        "width": 440,
+        "color": 7
+      },
+      "id": "58d6d78d-c083-4fbf-bb42-50683f3b7a0b",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        128,
+        48
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {}
+      },
+      "id": "29781a16-7e91-42e0-985a-38d2278fc952",
+      "name": "Email Trigger",
+      "type": "n8n-nodes-base.gmailTrigger",
+      "position": [
+        -304,
+        432
+      ],
+      "notesInFlow": true,
+      "typeVersion": 1.2,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "RJv66hwjTioWAQiH",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "3bc8a327-7e66-48e3-b442-38125b6f8670",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              },
+              "leftValue": "={{ $json.Subject }}",
+              "rightValue": "EDI"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8b407a28-7344-4a7d-a33c-f055a9c63efc",
+      "name": "Subject includes EDI",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        -80,
+        432
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "38358bb8-1b5a-4adc-816d-6710f53f7c0d",
+              "name": "body",
+              "type": "string",
+              "value": "={{ $json.text.replace(/\\\\n/g, '\\n').replace(/^'|'$/g, '') }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1932488c-acbb-4e0f-9d36-794a06bbb4c6",
+      "name": "Extract Body",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        288,
+        432
+      ],
+      "notesInFlow": true,
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "messageId": "={{ $json.id }}",
+        "simple": false,
+        "options": {}
+      },
+      "id": "0d7bd40c-5eac-4ca1-9333-52dd51012a61",
+      "name": "Get Email",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        144,
+        432
+      ],
+      "webhookId": "7476ecd4-e3ba-471d-a73a-ddef7b3ffd28",
+      "notesInFlow": true,
+      "typeVersion": 2.1,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "RJv66hwjTioWAQiH",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// EDI Parser function for n8n JavaScript node\nfunction parseEDI(ediMessage) {\n  // Define the data structure to store parsed results\n  const result = {\n    interchangeHeader: {},\n    messageHeader: {},\n    orderDetails: {},\n    dates: [],\n    parties: [],\n    lineItems: []\n  };\n  \n  // Split the message into lines and remove empty lines\n  const lines = ediMessage.split(\"'\").filter(line => line.trim().length > 0);\n  \n  // Parse each line\n  let currentLineItem = null;\n  \n  for (const line of lines) {\n    const segments = line.trim().split('+');\n    const segmentName = segments[0];\n    \n    switch (segmentName) {\n      case 'UNA':\n        // Service String Advice - contains delimiter information\n        break;\n        \n      case 'UNB':\n        // Interchange Header\n        // UNB+UNOC:3+SENDER_ID+RECEIVER_ID+240318:1200+ORDER54321\n        result.interchangeHeader = {\n          syntax: segments[1],\n          senderId: segments[2],\n          receiverId: segments[3],\n          dateTime: segments[4]?.split(':')[0] || '',\n          time: segments[4]?.split(':')[1] || '',\n          controlReference: segments[5] || ''\n        };\n        break;\n        \n      case 'UNH':\n        // Message Header\n        // UNH+1+ORDERS:D:96A:UN\n        if (segments.length > 2) {\n          const messageParts = segments[2].split(':');\n          result.messageHeader = {\n            messageReference: segments[1],\n            messageType: messageParts[0],\n            messageVersion: messageParts[1],\n            messageRelease: messageParts[2],\n            controlAgency: messageParts[3]\n          };\n        }\n        break;\n        \n      case 'BGM':\n        // Beginning of Message\n        // BGM+230+RT54321098+9\n        result.orderDetails = {\n          documentType: segments[1],\n          documentNumber: segments[2],\n          messageFunction: segments[3]\n        };\n        break;\n        \n      case 'DTM':\n        // Date/Time/Period\n        // DTM+137:20250319:102\n        if (segments[1]) {\n          const dateParts = segments[1].split(':');\n          const dateObj = {\n            qualifier: dateParts[0],\n            date: dateParts[1],\n            format: dateParts[2]\n          };\n          \n          // Add human-readable description based on qualifier\n          switch (dateParts[0]) {\n            case '137':\n              dateObj.description = 'Document Date';\n              break;\n            case '2':\n              dateObj.description = 'Delivery Date';\n              break;\n            case '10':\n              dateObj.description = 'Shipment Date';\n              break;\n            default:\n              dateObj.description = 'Other Date';\n          }\n          \n          result.dates.push(dateObj);\n        }\n        break;\n      \n      case 'NAD':\n        // Name and Address\n        // NAD+BY+CUSTOMER_123::91\n        if (segments.length > 1) {\n          const partyCode = segments[1];\n          const partyId = segments[2]?.split(':')[0] || '';\n          \n          const party = {\n            partyQualifier: partyCode,\n            partyId: partyId,\n            qualifierDescription: ''\n          };\n          \n          // Add human-readable description\n          switch (partyCode) {\n            case 'BY':\n              party.qualifierDescription = 'Buyer';\n              break;\n            case 'SU':\n              party.qualifierDescription = 'Supplier';\n              break;\n            case 'DP':\n              party.qualifierDescription = 'Delivery Party';\n              break;\n            default:\n              party.qualifierDescription = 'Other Party';\n          }\n          \n          // If there's a full name instead of a code (like \"Returns Processing Hub\")\n          if (segments[2] && !segments[2].includes(':')) {\n            party.partyName = segments[2];\n            party.partyId = '';\n          }\n          \n          result.parties.push(party);\n        }\n        break;\n      \n      case 'LIN':\n        // Line Item\n        // LIN+1++321654:IN\n        currentLineItem = {\n          lineNumber: segments[1],\n          productId: '',\n          productIdType: '',\n          description: '',\n          quantity: 0,\n          unit: '',\n          price: 0\n        };\n        \n        // Parse product ID if present\n        if (segments[3]) {\n          const productParts = segments[3].split(':');\n          currentLineItem.productId = productParts[0];\n          currentLineItem.productIdType = productParts[1] || '';\n        }\n        \n        result.lineItems.push(currentLineItem);\n        break;\n      \n      case 'IMD':\n        // Item Description\n        // IMD+F++:::Defective Product A\n        if (currentLineItem && segments.length > 3) {\n          // The description is typically in the last component after multiple colons\n          const descriptionParts = segments[3].split(':');\n          currentLineItem.description = descriptionParts[descriptionParts.length - 1];\n        }\n        break;\n      \n      case 'QTY':\n        // Quantity\n        // QTY+21:10:EA\n        if (currentLineItem && segments[1]) {\n          const quantityParts = segments[1].split(':');\n          currentLineItem.quantityQualifier = quantityParts[0];\n          currentLineItem.quantity = parseFloat(quantityParts[1] || '0');\n          currentLineItem.unit = quantityParts[2] || '';\n        }\n        break;\n      \n      case 'PRI':\n        // Price Details\n        // PRI+AAA:0.00\n        if (currentLineItem && segments[1]) {\n          const priceParts = segments[1].split(':');\n          currentLineItem.priceQualifier = priceParts[0];\n          currentLineItem.price = parseFloat(priceParts[1] || '0');\n        }\n        break;\n      \n      case 'UNT':\n        // Message Trailer\n        break;\n      \n      case 'UNZ':\n        // Interchange Trailer\n        break;\n    }\n  }\n  \n  // Add some summary info\n  result.summary = {\n    documentType: 'Return Order',\n    documentNumber: result.orderDetails.documentNumber,\n    orderDate: result.dates.find(d => d.qualifier === '137')?.date || '',\n    lineItemCount: result.lineItems.length,\n    totalQuantity: result.lineItems.reduce((sum, item) => sum + item.quantity, 0)\n  };\n  \n  return result;\n}\n\n// Return the parsed EDI data\nconst ediMessage =  $input.first().json.body;\n\nif (!ediMessage) {\n  throw new Error('No EDI message found in input. Please provide the EDI message in the \"ediMessage\" property.');\n}\n\nconst parsedData = parseEDI(ediMessage);\nreturn { json: parsedData };"
+      },
+      "id": "1e83e87c-77f7-4ecb-9565-e792238ba059",
+      "name": "Parse EDI Message",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        448,
+        432
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "content": "### 4. Store the Transactions in a Google Sheet\nThis block will filter the order based on the order type (Return Orders, Outbound Orders) extracted from the order information node. Results are stored in two distinct sheets of the same Google Sheet file.\n\n#### How to setup?\n- **Add Results in Google Sheets**:\n   1. Add your Google Sheet API credentials to access the Google Sheet file\n   2. Select the file using the list, an URL or an ID\n   3. Select the sheet in which the vocabulary list is stored\n   4. You don't need to create columns as the mapping is automatic.\n  [Learn more about the Google Sheet Node](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.googlesheets)",
+        "height": 620,
+        "width": 700,
+        "color": 7
+      },
+      "id": "0549275a-b104-4e10-99dc-b45a0d9b3c9f",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1008,
+        48
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "mode": "combineBySql"
+      },
+      "id": "7f1a1f82-3719-41ea-bf1f-f1a48add1aa6",
+      "name": "Order Info + Orderlines",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        1072,
+        416
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "jsCode": "// EDI to Flattened Tabular Data Transformer for n8n JavaScript node\nfunction transformToFlattened(parsedEDI) {\n  const flattened = [];\n  \n  // Create a header object with all order header fields\n  const headerObj = {\n    header_Document_Type: parsedEDI.orderDetails.documentType || '',\n    header_Document_Number: parsedEDI.orderDetails.documentNumber || '',\n    header_Message_Function: parsedEDI.orderDetails.messageFunction || '',\n    header_Sender_ID: parsedEDI.interchangeHeader.senderId || '',\n    header_Receiver_ID: parsedEDI.interchangeHeader.receiverId || '',\n    header_Date: parsedEDI.interchangeHeader.dateTime || '',\n    header_Time: parsedEDI.interchangeHeader.time || '',\n    header_Control_Reference: parsedEDI.interchangeHeader.controlReference || ''\n  };\n  \n  // Process all dates\n  const dateObjs = {};\n  if (parsedEDI.dates && Array.isArray(parsedEDI.dates)) {\n    parsedEDI.dates.forEach((date, index) => {\n      const prefix = `date${index + 1}_`;\n      dateObjs[`${prefix}Qualifier`] = date.qualifier || '';\n      dateObjs[`${prefix}Description`] = date.description || '';\n      dateObjs[`${prefix}Date`] = date.date || '';\n      dateObjs[`${prefix}Format`] = date.format || '';\n    });\n  }\n  \n  // Process all parties\n  const partyObjs = {};\n  if (parsedEDI.parties && Array.isArray(parsedEDI.parties)) {\n    parsedEDI.parties.forEach((party, index) => {\n      const prefix = `party${index + 1}_`;\n      partyObjs[`${prefix}Type`] = party.partyQualifier || '';\n      partyObjs[`${prefix}Description`] = party.qualifierDescription || '';\n      partyObjs[`${prefix}ID`] = party.partyId || '';\n      partyObjs[`${prefix}Name`] = party.partyName || '';\n    });\n  }\n  \n  // Create one row for each line item with all header, date, and party info\n  if (parsedEDI.lineItems && Array.isArray(parsedEDI.lineItems)) {\n    parsedEDI.lineItems.forEach((item) => {\n      const lineItem = {\n        line_Number: item.lineNumber || '',\n        line_Product_ID: item.productId || '',\n        line_Product_ID_Type: item.productIdType || '',\n        line_Description: item.description || '',\n        line_Quantity: item.quantity || 0,\n        line_Unit: item.unit || '',\n        line_Price: item.price || 0,\n        line_Price_Qualifier: item.priceQualifier || ''\n      };\n      \n      // Combine all information into one flat object\n      const flatRow = {\n        ...headerObj,\n        ...dateObjs,\n        ...partyObjs,\n        ...lineItem\n      };\n      \n      flattened.push(flatRow);\n    });\n  }\n  \n  // If there are no line items, create at least one row with header info\n  if (flattened.length === 0) {\n    flattened.push({\n      ...headerObj,\n      ...dateObjs,\n      ...partyObjs\n    });\n  }\n  \n  return flattened;\n}\n\nconst parsedEDI = $input.all()[0].json;\n\n// Make sure we have valid data\nif (!parsedEDI || !parsedEDI.orderDetails) {\n  throw new Error('Invalid EDI data format. Please ensure the input is from the EDI parser.');\n}\n\nconst flattenedData = transformToFlattened(parsedEDI);\n\n// Return the flattened data\nreturn { json: { data: flattenedData } };"
+      },
+      "id": "7a0ad57e-e846-4969-843d-c43d754c7ffe",
+      "name": "Flatten Data to Orderlines",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        640,
+        432
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "data",
+        "options": {}
+      },
+      "id": "caebe99f-b1b4-4ea0-8ac6-ba2bf7d47d80",
+      "name": "Split Out by Line",
+      "type": "n8n-nodes-base.splitOut",
+      "position": [
+        832,
+        432
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### 3. Process Parsed Data\nThis block extract order information and format the orderlines to be stored in a google sheet.\n\n#### How to setup?\nNothing to do.",
+        "height": 620,
+        "width": 320,
+        "color": 7
+      },
+      "id": "47a6d946-294b-43ec-8267-8837a416272d",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        624,
+        48
+      ],
+      "typeVersion": 1
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-08-30T00:44:26.000Z",
+  "versionId": "e08bed85-e7b2-4f72-9fe9-e621620f3a6a"
+}
